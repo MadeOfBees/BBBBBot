@@ -1,11 +1,10 @@
-const dotenv = require('dotenv');
-dotenv.config();
 const token = process.env.TOKEN;
 const clientId = process.env.CLIENTID;
 const guildId = process.env.GUILDID;
 const { REST, Routes } = require('discord.js');
-const fs = require('node:fs');
-const path = require('node:path');
+const fs = require('fs');
+const path = require('path');
+
 
 const commands = [];
 // Grab all the command folders from the commands directory you created earlier
@@ -15,7 +14,7 @@ const commandFolders = fs.readdirSync(foldersPath);
 for (const folder of commandFolders) {
     // Grab all the command files from the commands directory you created earlier
     const commandsPath = path.join(foldersPath, folder);
-    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+    const commandFiles = fs.readdirSync(commandsPath).filter((file: string) => file.endsWith('.tsx'));
     console.log(`[INFO] Found ${commandFiles.length} commands in ${folder}.`);
     // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
     for (const file of commandFiles) {

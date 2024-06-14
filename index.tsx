@@ -1,10 +1,11 @@
-const dotenv = require('dotenv');
-dotenv.config();
 const token = process.env.TOKEN;
-const fs = require('node:fs');
-const path = require('node:path');
+// import fs/path bun
+const fs = require('fs');
+const path = require('path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 require('./deploy-commands');
+// require interaction/ for type
+const { Interaction, ReadyClient } = require('discord.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -14,7 +15,7 @@ const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
     const commandsPath = path.join(foldersPath, folder);
-    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+    const commandFiles = fs.readdirSync(commandsPath).filter((file: string) => file.endsWith('.tsx'));
     for (const file of commandFiles) {
         const filePath = path.join(commandsPath, file);
         const command = require(filePath);
@@ -26,11 +27,11 @@ for (const folder of commandFolders) {
     }
 }
 
-client.once(Events.ClientReady, readyClient => {
+client.once(Events.ClientReady, (readyClient: typeof ReadyClient) {
     console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
-client.on(Events.InteractionCreate, async interaction => {
+client.on(Events.InteractionCreate, async (interaction: typeof Interaction) => {
     if (!interaction.isChatInputCommand()) return;
     const command = interaction.client.commands.get(interaction.commandName);
 
