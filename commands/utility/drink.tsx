@@ -31,7 +31,7 @@ module.exports = {
       }
     }
     const role = interaction.guild.roles.cache.find(
-      (role: any) => role.name === "Vaping"
+      (role: any) => role.name === "Drinking"
     );
     await member.roles.add(role);
     setTimeout(() => {
