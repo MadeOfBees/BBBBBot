@@ -27,7 +27,7 @@ for (const folder of commandFolders) {
     }
 }
 
-client.once(Events.ClientReady, (readyClient: typeof ReadyClient) {
+client.once(Events.ClientReady, (readyClient: typeof ReadyClient) => {
     console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
