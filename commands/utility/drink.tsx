@@ -1,15 +1,37 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { CommandInteraction, Role } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("drink")
-    .setDescription("Drink a brewski."),
-  async execute(interaction: typeof CommandInteraction) {
+    .setDescription("Have a drink.")
+    .addStringOption((option: any) =>
+      option.setName("input").setDescription("The drink you are drinking.")
+    ),
+
+  async execute(interaction: any) {
     const member = interaction.member;
-    await interaction.reply(`${member.user.globalName} is drinking!`);
+    const drink: string = interaction.options.getString("input");
+    if (!drink) {
+      await interaction.reply(`${member.user.globalName} is drinking!`);
+    } else {
+      switch (drink) {
+        case "beer":
+          await interaction.reply(
+            `${member.user.globalName} is drinking a brewski!`
+          );
+          break;
+        case "vodka":
+          await interaction.reply(`VODKA!!!`);
+          break;
+        default:
+          await interaction.reply(
+            `${member.user.globalName} is drinking ${drink}!`
+          );
+          break;
+      }
+    }
     const role = interaction.guild.roles.cache.find(
-      (role: typeof Role) => role.name === "Drinking"
+      (role: any) => role.name === "Vaping"
     );
     await member.roles.add(role);
     setTimeout(() => {
