@@ -97,11 +97,8 @@ module.exports = {
         characterData.lifestyleId !== undefined
           ? lifestyles[characterData.lifestyleId - 1] || "Unknown"
           : "Unknown";
-      const nameWithoutFirstAndLastLetter: string = characterData.name.slice(
-        1,
-        -1
-      );
-      const reply = `Character data for ${nameWithoutFirstAndLastLetter}: \nSocial Name: ${
+
+      const reply = `Character data for ${characterData.name}: \nSocial Name: ${
         characterData.socialName
       }\nGender: ${characterData.gender}\nFaith: ${characterData.faith}\nAge: ${
         characterData.age
