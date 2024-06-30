@@ -48,27 +48,23 @@ module.exports = {
 
       type CharacterDataInputs = {
         name: string;
-        socialName?: string;
-        gender?: string;
-        faith?: string;
-        age?: number;
-        hair?: string;
-        eyes?: string;
-        skin?: string;
-        height?: string;
-        weight?: number;
-        inspiration?: boolean;
-        baseHitPoints?: number;
-        bonusHitPoints?: number;
-        overrideHitPoints?: number;
-        removedHitPoints?: number;
-        temporaryHitPoints?: number;
-        currentXp?: number;
-        alignmentId?: number;
-        lifestyleId?: number;
-        stats?: { name: string; value: number; id: number }[];
-        bonusStats?: { name: string; value: number; id: number }[];
-        overrideStats?: { name: string; value: number; id: number }[];
+        socialName: string;
+        gender: string;
+        faith: string;
+        age: number;
+        hair: string;
+        eyes: string;
+        skin: string;
+        height: string;
+        weight: string;
+        inspiration: string;
+        baseHitPoints: number;
+        currentXp: number;
+        alignmentId: number;
+        lifestyleId: number;
+        stats: { name: string; value: number; id: number }[];
+        bonusStats: { name: string; value: number; id: number }[];
+        overrideStats: { name: string; value: number; id: number }[];
       };
       const characterData: CharacterDataInputs = {
         name: html.data.name,
@@ -83,6 +79,7 @@ module.exports = {
         weight: html.data.weight,
         inspiration: html.data.inspiration,
         baseHitPoints: html.data.baseHitPoints,
+        currentXp: html.data.currentXp,
         alignmentId: html.data.alignmentId,
         lifestyleId: html.data.lifestyleId,
         stats: html.data.stats,
@@ -98,15 +95,15 @@ module.exports = {
           ? lifestyles[characterData.lifestyleId - 1] || "Unknown"
           : "Unknown";
 
-      const reply = `Character data for ${characterData.name}: \nSocial Name: ${
-        characterData.socialName
-      }\nGender: ${characterData.gender}\nFaith: ${characterData.faith}\nAge: ${
-        characterData.age
-      }\nHair: ${characterData.hair}\nEyes: ${characterData.eyes}\nSkin: ${
-        characterData.skin
-      }\nHeight: ${characterData.height}\nWeight: ${
-        characterData.weight
-      }\nInspiration: ${characterData.inspiration}\nBase Hit Points: ${
+      const reply = `Character data for ${characterData.name}: \nGender: ${
+        characterData.gender
+      }\nFaith: ${characterData.faith}\nAge: ${characterData.age}\nHair: ${
+        characterData.hair
+      }\nEyes: ${characterData.eyes}\nSkin: ${characterData.skin}\nHeight: ${
+        characterData.height
+      }\nWeight: ${characterData.weight}\nInspiration: ${
+        characterData.inspiration
+      }\nBase Hit Points: ${
         characterData.baseHitPoints
       }\nAlignment: ${alignment}\nLifestyle: ${lifestyle}\nCurrent XP: ${
         characterData.currentXp
@@ -116,14 +113,12 @@ module.exports = {
           .join("\n") ?? ""
       }
       ${
-        characterData.bonusStats &&
         characterData.bonusStats.some((stat) => stat.value !== null)
           ? `\nBonus Stats:\n${characterData.bonusStats
               .map((stat) => `${statNames[stat.id - 1]}: ${stat.value}`)
               .join("\n")}`
           : ""
       }${
-        characterData.overrideStats &&
         characterData.overrideStats.some((stat) => stat.value !== null)
           ? `\nOverride Stats:\n${characterData.overrideStats
               .map((stat) => `${statNames[stat.id - 1]}: ${stat.value}`)
