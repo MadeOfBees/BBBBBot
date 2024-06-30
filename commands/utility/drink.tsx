@@ -7,14 +7,13 @@ module.exports = {
     .addStringOption((option: any) =>
       option.setName("input").setDescription("The drink you are drinking.")
     ),
-
   async execute(interaction: any) {
     const member = interaction.member;
     const drink: string = interaction.options.getString("input");
     if (!drink) {
       await interaction.reply(`${member.user.globalName} is drinking!`);
     } else {
-      switch (drink) {
+      switch (drink.toLowerCase()) {
         case "beer":
           await interaction.reply(
             `${member.user.globalName} is drinking a brewski!`

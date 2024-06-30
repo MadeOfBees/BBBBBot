@@ -14,10 +14,10 @@ module.exports = {
     if (!vape) {
       await interaction.reply(`${member.user.globalName} is vaping a bowlski!`);
     } else {
-      switch (vape) {
+      switch (vape.toLowerCase()) {
         case "beer":
           await interaction.reply(
-            `${member.user.globalName} is vaping a brewski! \n\n wait, what?`
+            `${member.user.globalName} is vaping a brewski! \n\nWait, what?`
           );
           break;
         default:
