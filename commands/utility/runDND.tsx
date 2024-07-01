@@ -10,13 +10,23 @@ module.exports = {
   // fetch data from DnD api (https://character-service.dndbeyond.com/character/v5/character/${CHARACTER_ID}) with Bun's fetch function
   async execute(interaction: any) {
     const characterID: string = interaction.options.getString("input");
+    const parsedInput = await function (input: string) {
+      if (!input.includes("/")) return input;
+      const firstInputSplit = input.split("dndbeyond.com/characters/");
+      const secondInputSplit = firstInputSplit[1].split("/");
+      return secondInputSplit[0];
+    };
     if (!characterID) {
       await interaction.reply(`Please provide a character ID.`);
     } else {
       const response: any = await fetch(
-        `https://character-service.dndbeyond.com/character/v5/character/${characterID}`
+        `https://character-service.dndbeyond.com/character/v5/character/${parsedInput(characterID)}`
       );
       const html: any = await response.json();
+      if (html.data.name === undefined) {
+        await interaction.reply(`Character ID not found.`);
+        return;
+      }
       const statNames: string[] = [
         "Strength",
         "Dexterity",
@@ -86,13 +96,14 @@ module.exports = {
         bonusStats: html.data.bonusStats,
         overrideStats: html.data.overrideStats,
       };
+      console.log(characterID);
       const alignment: string =
         characterData.alignmentId !== undefined
-          ? alignments[characterData.alignmentId - 1] || "Unknown"
+          ? alignments[characterData.alignmentId - 1]
           : "Unknown";
       const lifestyle: string =
         characterData.lifestyleId !== undefined
-          ? lifestyles[characterData.lifestyleId - 1] || "Unknown"
+          ? lifestyles[characterData.lifestyleId - 1]
           : "Unknown";
 
       const reply = `Character data for ${characterData.name}: \nGender: ${
