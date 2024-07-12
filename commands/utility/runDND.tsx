@@ -96,7 +96,6 @@ module.exports = {
         bonusStats: html.data.bonusStats,
         overrideStats: html.data.overrideStats,
       };
-      console.log(characterID);
       const alignment: string =
         characterData.alignmentId !== undefined
           ? alignments[characterData.alignmentId - 1]
