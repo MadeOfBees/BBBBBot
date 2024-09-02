@@ -4,12 +4,12 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("drink")
     .setDescription("Have a drink.")
-    .addStringOption((option: any) =>
+    .addStringOption((option) =>
       option.setName("input").setDescription("The drink you are drinking.")
     ),
-  async execute(interaction: any) {
+  async execute(interaction) {
     const member = interaction.member;
-    const drink: string = interaction.options.getString("input");
+    const drink = interaction.options.getString("input");
     if (!drink) {
       await interaction.reply(`${member.user.globalName} is drinking!`);
     } else {
@@ -30,7 +30,7 @@ module.exports = {
       }
     }
     const role = interaction.guild.roles.cache.find(
-      (role: any) => role.name === "Drinking"
+      (role) => role.name === "Drinking"
     );
     await member.roles.add(role);
     setTimeout(() => {
@@ -38,3 +38,4 @@ module.exports = {
     }, 300000);
   },
 };
+

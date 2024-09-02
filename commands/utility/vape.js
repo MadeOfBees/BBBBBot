@@ -4,13 +4,13 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("vape")
     .setDescription("Vape a bowlski.")
-    .addStringOption((option: any) =>
+    .addStringOption((option) =>
       option.setName("input").setDescription("The vape you are using.")
     ),
 
-  async execute(interaction: any) {
+  async execute(interaction) {
     const member = interaction.member;
-    const vape: string = interaction.options.getString("input");
+    const vape = interaction.options.getString("input");
     if (!vape) {
       await interaction.reply(`${member.user.globalName} is vaping a bowlski!`);
     } else {
@@ -28,7 +28,7 @@ module.exports = {
       }
     }
     const role = interaction.guild.roles.cache.find(
-      (role: any) => role.name === "Vaping"
+      (role) => role.name === "Vaping"
     );
     await member.roles.add(role);
     setTimeout(() => {

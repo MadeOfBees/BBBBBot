@@ -3,8 +3,8 @@
   "module": "index.js",
   "type": "module",
   "scripts": {
-    "start": "bun index.tsx",
-    "dev": "bun index.tsx --watch"
+    "start": "bun index.js",
+    "dev": "bun index.js --watch"
   },
   "devDependencies": {
     "@types/bun": "latest"
